@@ -15,6 +15,15 @@ init_install_creds() {
 	    DB_ROOT="$DEV_DB_PASS"
 	    OS_PASS="$DEV_OS_PASS"
 	    ADMIN_PASS="$DEV_ADMIN_PASS"
+
+	# Use preset creds if performing non-interactive install with an existing database
+	elif [ "$PROMPT" = "false" ] && [ "$DB_EXISTS" = true ] && [ "$DB_DROP_EXISTING" = false ]; then
+		echo ""
+        echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+	    echo "!  WARNING: Using preset credentials so application can use existing database. !"
+	    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+	    echo ""
+
 	else
 	    # Generate a unique password for this install for the database user
 	    DB_PASS=`LC_CTYPE=C tr -dc A-Za-z0-9_\!\@\#\$\%\^\&\*\(\)-+ < /dev/urandom | head -c 24`
