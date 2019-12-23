@@ -92,12 +92,6 @@ function ubuntu_db_config() {
                 echo "=============================================================================="
                 echo ""
                 MYSQL_PWD="$DB_PASS" mysqladmin -f --host="$DB_HOST" --port="$DB_PORT" --user="$DB_USER" drop "$DB_NAME"
-            else
-                echo "##############################################################################"
-                echo "  ERROR: DB_DROP_EXISTING is false, but $DB_NAME exists - exiting"
-                echo "##############################################################################"
-                echo ""
-                exit 1
             fi
         else
             # DB does not exist in the already running DB server provided to the installer
