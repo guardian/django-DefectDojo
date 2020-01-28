@@ -73,5 +73,5 @@ setup(
     dependency_links=[
         "https://github.com/grendel513/python-pdfkit/tarball/master#egg=pdfkit-0.5.0"
     ],
-    url='https://github.com/DefectDojo/django-DefectDojo'
+    url='https://github.com/guardian/django-DefectDojo'
 )
