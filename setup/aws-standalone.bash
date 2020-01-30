@@ -163,8 +163,11 @@ check_install_os
 check_python_version
 
 # Install yarn and verify GPG signature
-curl -o- -L https://yarnpkg.com/install.sh | bash
-source ~/.bashrc # reload terminal so that yarn is available
+apt-get remove cmdtest
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+apt-get install --no-install-recommends yarn
+# source ~/.bashrc # reload terminal so that yarn is available
 
 # TODO: consider installing wkhtml on the AMI instead? apt-get install -y wkhtmltopdf ??
 ubuntu_wkhtml_install
@@ -185,15 +188,10 @@ cd $REPO_BASE
 yarn install
 
 # Before running nginx, you have to collect all Django static files in the static folder
-# TODO: work out why this fails...
 $PY manage.py collectstatic --noinput
 
-# TODO: python manage.py migrate
-$Py manange.py migrate
-
 echo "=============================================================================="
-echo "  When you're ready to start the DefectDojo server, type in this directory: "
-echo ""
-echo "    $PY manage.py runserver"
+echo "  Running database migrations "
 echo "=============================================================================="
 echo ""
+$PY manange.py migrate
