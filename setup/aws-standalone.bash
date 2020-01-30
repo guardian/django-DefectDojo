@@ -163,10 +163,10 @@ check_install_os
 check_python_version
 
 # Install yarn and verify GPG signature
-apt-get remove cmdtest
+apt-get remove cmdtest --yes
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-apt-get install --no-install-recommends yarn
+apt-get install --no-install-recommends yarn --yes
 # source ~/.bashrc # reload terminal so that yarn is available
 
 # TODO: consider installing wkhtml on the AMI instead? apt-get install -y wkhtmltopdf ??
@@ -184,7 +184,6 @@ cd $DOJO_SOURCE
 $PIP install -r requirements.txt
 
 # Install deps from package.json using yarn
-cd $REPO_BASE
 yarn install
 
 # Before running nginx, you have to collect all Django static files in the static folder
@@ -194,4 +193,20 @@ echo "==========================================================================
 echo "  Running database migrations "
 echo "=============================================================================="
 echo ""
-$PY manange.py migrate
+
+$PY manage.py makemigrations --merge --noinput
+$PY manage.py makemigrations dojo
+$PY manage.py migrate
+
+echo "=============================================================================="
+echo "  Creating SuperUsers "
+echo "=============================================================================="
+echo ""
+
+$PY manage.py createsuperuser --noinput --username="$ADMIN_USER" --email="$ADMIN_EMAIL"
+# Run the add Django superuser script based on python version
+if [ "$PY" = python3 ]; then
+    $SETUP_BASE/scripts/common/setup-superuser.expect "$ADMIN_USER" "$ADMIN_PASS"
+else
+    $SETUP_BASE/scripts/common/setup-superuser-2.expect "$ADMIN_USER" "$ADMIN_PASS"
+fi
