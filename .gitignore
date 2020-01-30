@@ -91,7 +91,7 @@ Quarterly.txt
 
 # yarn
 components/*
-!components/package.json
+!components/healthcheck
 dojo/static/*
 !dojo/static/dojo/*
 dojo/media
