@@ -1,6 +1,6 @@
 #!/bin/bash
 # this script automates installing DefectDojo using settings from config-vars
-# there are some assupmtions being made:
+# there are some assumptions being made:
 #   - you will overwrite the defaults from in config-vars to give your instance unique secrets
 #   - the machine image that Defect Dojo will run on already has most dependencies installed
 #   - the database should be on a separate server and should not be deleted
@@ -167,7 +167,7 @@ apt-get remove cmdtest --yes
 
 # Install yarn and verify GPG signature
 curl -o- -L https://yarnpkg.com/install.sh | bash
-source ~/.bashrc # reload terminal so that yarn is available
+source $HOME/.bashrc # reload terminal so that yarn is available
 
 # TODO: consider installing wkhtml on the AMI instead? apt-get install -y wkhtmltopdf ??
 ubuntu_wkhtml_install
