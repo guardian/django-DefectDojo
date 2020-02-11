@@ -162,12 +162,13 @@ test_database_access
 check_install_os
 check_python_version
 
-# Remove cmdtest to prevent name collisions
+# Remove cmdtest to prevent name collisions - see https://github.com/yarnpkg/yarn/issues/2821
 apt-get remove cmdtest --yes
 
 # Install yarn and verify GPG signature
-curl -o- -L https://yarnpkg.com/install.sh | bash
-source $HOME/.bashrc # reload terminal so that yarn is available
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+apt update && apt install yarn
 
 # TODO: consider installing wkhtml on the AMI instead? apt-get install -y wkhtmltopdf ??
 ubuntu_wkhtml_install
