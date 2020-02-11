@@ -168,7 +168,7 @@ apt-get remove cmdtest --yes
 # Install yarn and verify GPG signature
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-apt update && apt install yarn
+sudo apt update && sudo apt install yarn --yes
 
 # TODO: consider installing wkhtml on the AMI instead? apt-get install -y wkhtmltopdf ??
 ubuntu_wkhtml_install
