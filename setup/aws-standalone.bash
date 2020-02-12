@@ -185,7 +185,7 @@ cd $DOJO_SOURCE
 $PIP install -r requirements.txt
 
 # Install deps from package.json using yarn
-yarn install
+yarn install -s --ignore-engines --non-interactive
 
 # Before running nginx, you have to collect all Django static files in the static folder
 $PY manage.py collectstatic --noinput
