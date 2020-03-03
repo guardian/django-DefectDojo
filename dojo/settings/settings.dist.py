@@ -242,7 +242,7 @@ URL_PREFIX = env('DD_URL_PREFIX')
 LOGIN_REDIRECT_URL = env('DD_LOGIN_REDIRECT_URL')
 LOGIN_URL = '/login'
 
-# These are the individidual modules supported by social-auth
+# These are the individual modules supported by social-auth
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'dojo.okta.OktaOAuth2',
@@ -551,15 +551,25 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
         },
+        'debug_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/var/log/django/debug.log'
+        },
+        'error_file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': '/var/log/django/error.log'
+        }
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['error_file'],
             'level': 'ERROR',
             'propagate': True,
         },
         'dojo': {
-            'handlers': ['console'],
+            'handlers': ['debug_file'],
             'level': 'DEBUG',
             'propagate': False,
         },
