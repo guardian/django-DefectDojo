@@ -554,12 +554,12 @@ LOGGING = {
         'debug_file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/var/log/django/debug.log'
+            'filename': '/var/log/dojo/debug.log'
         },
         'error_file': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
-            'filename': '/var/log/django/error.log'
+            'filename': '/var/log/dojo/error.log'
         }
     },
     'loggers': {
