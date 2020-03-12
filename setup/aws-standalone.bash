@@ -185,7 +185,7 @@ cd $DOJO_SOURCE
 $PIP install -r requirements.txt
 
 # Fix for https://github.com/DefectDojo/django-DefectDojo/issues/1931
-yarn set version v1.21.0
+yarn policies set-version v1.21.0
 
 # Install deps from package.json using yarn
 yarn install -s --ignore-engines --non-interactive
